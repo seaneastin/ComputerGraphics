@@ -177,11 +177,11 @@ public:
 	double getMouseScroll();
 
 	// delgates for attaching input observers to the Input class
-	typedef std::function<void(GLFWwindow* window, int key, int scancode, int action, int mods)> KeyCallback;
-	typedef std::function<void(GLFWwindow* window, unsigned int character)> CharCallback;
-	typedef std::function<void(GLFWwindow* window, int button, int action, int mods)> MouseButtonCallback;
-	typedef std::function<void(GLFWwindow* window, double xoffset, double yoffset)> MouseScrollCallback;
-	typedef std::function<void(GLFWwindow* window, double x, double y)> MouseMoveCallback;
+	typedef std::function<void(GLFWwindow* m_window, int key, int scancode, int action, int mods)> KeyCallback;
+	typedef std::function<void(GLFWwindow* m_window, unsigned int character)> CharCallback;
+	typedef std::function<void(GLFWwindow* m_window, int button, int action, int mods)> MouseButtonCallback;
+	typedef std::function<void(GLFWwindow* m_window, double xoffset, double yoffset)> MouseScrollCallback;
+	typedef std::function<void(GLFWwindow* m_window, double x, double y)> MouseMoveCallback;
 
 	// functions for attatching input observers
 	void attachKeyObserver(const KeyCallback& callback) { m_keyCallbacks.push_back(callback); }

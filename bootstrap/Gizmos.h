@@ -17,10 +17,10 @@ public:
 
 	// draws current Gizmo buffers, either using a combined (projection * view) matrix, or separate matrices
 	static void		draw(const glm::mat4& projectionView);
-	static void		draw(const glm::mat4& projection, const glm::mat4& view);
+	static void		draw(const glm::mat4& m_projection, const glm::mat4& m_view);
 	
 	// the projection matrix here should ideally be orthographic with a near of -1 and far of 1
-	static void		draw2D(const glm::mat4& projection);
+	static void		draw2D(const glm::mat4& m_projection);
 	static void		draw2D(float screenWidth, float screenHeight);
 
 	// adds a single debug line

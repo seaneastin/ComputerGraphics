@@ -682,11 +682,11 @@ namespace ImGui
     inline    ImGuiWindow*  GetCurrentWindow()          { ImGuiContext& g = *GImGui; g.CurrentWindow->Accessed = true; return g.CurrentWindow; }
     IMGUI_API ImGuiWindow*  GetParentWindow();
     IMGUI_API ImGuiWindow*  FindWindowByName(const char* name);
-    IMGUI_API void          FocusWindow(ImGuiWindow* window);
+    IMGUI_API void          FocusWindow(ImGuiWindow* m_window);
 
     IMGUI_API void          EndFrame();                 // Ends the ImGui frame. Automatically called by Render()! you most likely don't need to ever call that yourself directly. If you don't need to render you can call EndFrame() but you'll have wasted CPU already. If you don't need to render, don't create any windows instead!
 
-    IMGUI_API void          SetActiveID(ImGuiID id, ImGuiWindow* window);
+    IMGUI_API void          SetActiveID(ImGuiID id, ImGuiWindow* m_window);
     IMGUI_API void          SetHoveredID(ImGuiID id);
     IMGUI_API void          KeepAliveID(ImGuiID id);
 
@@ -695,8 +695,8 @@ namespace ImGui
     IMGUI_API bool          ItemAdd(const ImRect& bb, const ImGuiID* id);
     IMGUI_API bool          IsClippedEx(const ImRect& bb, const ImGuiID* id, bool clip_even_when_logged);
     IMGUI_API bool          IsHovered(const ImRect& bb, ImGuiID id, bool flatten_childs = false);
-    IMGUI_API bool          FocusableItemRegister(ImGuiWindow* window, bool is_active, bool tab_stop = true);      // Return true if focus is requested
-    IMGUI_API void          FocusableItemUnregister(ImGuiWindow* window);
+    IMGUI_API bool          FocusableItemRegister(ImGuiWindow* m_window, bool is_active, bool tab_stop = true);      // Return true if focus is requested
+    IMGUI_API void          FocusableItemUnregister(ImGuiWindow* m_window);
     IMGUI_API ImVec2        CalcItemSize(ImVec2 size, float default_x, float default_y);
     IMGUI_API float         CalcWrapWidthForPos(const ImVec2& pos, float wrap_pos_x);
 

@@ -928,8 +928,8 @@ void Gizmos::add2DTri(const glm::vec2& rv0, const glm::vec2& rv1, const glm::vec
 	}
 }
 
-void Gizmos::draw(const glm::mat4& projection, const glm::mat4& view) {
-	draw(projection * view);
+void Gizmos::draw(const glm::mat4& m_projection, const glm::mat4& m_view) {
+	draw(m_projection * m_view);
 }
 
 void Gizmos::draw(const glm::mat4& projectionView) {
@@ -998,7 +998,7 @@ void Gizmos::draw2D(float screenWidth, float screenHeight) {
 	draw2D(glm::ortho(0.f, screenWidth, 0.f, screenHeight));
 }
 
-void Gizmos::draw2D(const glm::mat4& projection) {
+void Gizmos::draw2D(const glm::mat4& m_projection) {
 	if ( sm_singleton != nullptr && 
 		(sm_singleton->m_2DlineCount > 0 || 
 		 sm_singleton->m_2DtriCount > 0)) {
@@ -1008,7 +1008,7 @@ void Gizmos::draw2D(const glm::mat4& projection) {
 		glUseProgram(sm_singleton->m_shader);
 		
 		unsigned int projectionViewUniform = glGetUniformLocation(sm_singleton->m_shader,"ProjectionView");
-		glUniformMatrix4fv(projectionViewUniform, 1, false, glm::value_ptr(projection));
+		glUniformMatrix4fv(projectionViewUniform, 1, false, glm::value_ptr(m_projection));
 
 		if (sm_singleton->m_2DlineCount > 0) {
 			glBindBuffer(GL_ARRAY_BUFFER, sm_singleton->m_2DlineVBO);

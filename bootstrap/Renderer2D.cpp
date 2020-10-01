@@ -153,8 +153,8 @@ void Renderer2D::begin() {
 	m_currentTexture = 0;
 
 	int width = 0, height = 0;
-	auto window = glfwGetCurrentContext();
-	glfwGetWindowSize(window, &width, &height);
+	auto m_window = glfwGetCurrentContext();
+	glfwGetWindowSize(m_window, &width, &height);
 	
 	glUseProgram(m_shader);
 
@@ -172,8 +172,8 @@ void Renderer2D::begin() {
 	float bottom = midY - (scaledHeight * 0.5f);
 	float left = midX - (scaledWidth * 0.5f);
 
-	auto projection = glm::ortho(left, right, bottom, top, 1.0f, -101.0f);
-	glUniformMatrix4fv(glGetUniformLocation(m_shader, "projectionMatrix"), 1, false, &projection[0][0]);
+	auto m_projection = glm::ortho(left, right, bottom, top, 1.0f, -101.0f);
+	glUniformMatrix4fv(glGetUniformLocation(m_shader, "projectionMatrix"), 1, false, &m_projection[0][0]);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

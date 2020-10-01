@@ -11,64 +11,64 @@ Input::Input() {
 	m_lastKeys = new int[GLFW_KEY_LAST + 1];
 	m_currentKeys = new int[GLFW_KEY_LAST + 1];
 
-	auto window = glfwGetCurrentContext();
+	auto m_window = glfwGetCurrentContext();
 
 	for (int i = GLFW_KEY_SPACE; i <= GLFW_KEY_LAST; ++i)
-		m_lastKeys[i] = m_currentKeys[i] = glfwGetKey(window, i);
+		m_lastKeys[i] = m_currentKeys[i] = glfwGetKey(m_window, i);
 
 	for (int i = 0; i < 8; ++i)
-		m_lastButtons[i] = m_currentButtons[i] = glfwGetMouseButton(window, i);
+		m_lastButtons[i] = m_currentButtons[i] = glfwGetMouseButton(m_window, i);
 
 	// set up callbacks
-	auto KeyPressCallback = [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+	auto KeyPressCallback = [](GLFWwindow* m_window, int key, int scancode, int action, int mods) {
 
 		for (auto& f : Input::getInstance()->m_keyCallbacks)
-			f(window, key, scancode, action, mods);
+			f(m_window, key, scancode, action, mods);
 	};
 
-	auto CharacterInputCallback = [](GLFWwindow* window, unsigned int character) {
+	auto CharacterInputCallback = [](GLFWwindow* m_window, unsigned int character) {
 
 		Input::getInstance()->m_pressedCharacters.push_back(character);
 
 		for (auto& f : Input::getInstance()->m_charCallbacks)
-			f(window, character);
+			f(m_window, character);
 	};
 
-	auto MouseMoveCallback = [](GLFWwindow* window, double x, double y) {
+	auto MouseMoveCallback = [](GLFWwindow* m_window, double x, double y) {
 		int w = 0, h = 0;
-		glfwGetWindowSize(window, &w, &h);
+		glfwGetWindowSize(m_window, &w, &h);
 
 		Input::getInstance()->onMouseMove((int)x, h - (int)y);
 
 		for (auto& f : Input::getInstance()->m_mouseMoveCallbacks)
-			f(window, x, h - y);
+			f(m_window, x, h - y);
 	};
 
-	auto MouseInputCallback = [](GLFWwindow* window, int button, int action, int mods) {
+	auto MouseInputCallback = [](GLFWwindow* m_window, int button, int action, int mods) {
 		
 		for (auto& f : Input::getInstance()->m_mouseButtonCallbacks)
-			f(window, button, action, mods);
+			f(m_window, button, action, mods);
 	};
 
-	auto MouseScrollCallback = [](GLFWwindow* window, double xoffset, double yoffset) {
+	auto MouseScrollCallback = [](GLFWwindow* m_window, double xoffset, double yoffset) {
 
 		Input::getInstance()->m_mouseScroll += yoffset;
 
 		for (auto& f : Input::getInstance()->m_mouseScrollCallbacks)
-			f(window, xoffset, yoffset);
+			f(m_window, xoffset, yoffset);
 	};
 
-	auto MouseEnterCallback = [](GLFWwindow* window, int entered) {
+	auto MouseEnterCallback = [](GLFWwindow* m_window, int entered) {
 		// Set flag to prevent large mouse delta on entering screen
 		Input::getInstance()->m_firstMouseMove = true;
 	};
 
-	glfwSetKeyCallback(window, KeyPressCallback);
-	glfwSetCharCallback(window, CharacterInputCallback);
-	glfwSetMouseButtonCallback(window, MouseInputCallback);
-	glfwSetCursorPosCallback(window, MouseMoveCallback);
-	glfwSetScrollCallback(window, MouseScrollCallback);
-	glfwSetCursorEnterCallback(window, MouseEnterCallback);
+	glfwSetKeyCallback(m_window, KeyPressCallback);
+	glfwSetCharCallback(m_window, CharacterInputCallback);
+	glfwSetMouseButtonCallback(m_window, MouseInputCallback);
+	glfwSetCursorPosCallback(m_window, MouseMoveCallback);
+	glfwSetScrollCallback(m_window, MouseScrollCallback);
+	glfwSetCursorEnterCallback(m_window, MouseEnterCallback);
 	
 	m_mouseX = 0;
 	m_mouseY = 0;
@@ -95,7 +95,7 @@ void Input::clearStatus() {
 
 	m_pressedCharacters.clear();
 
-	auto window = glfwGetCurrentContext();
+	auto m_window = glfwGetCurrentContext();
 
 	m_pressedKeys.clear();
 
@@ -104,14 +104,14 @@ void Input::clearStatus() {
 
 		m_lastKeys[i] = m_currentKeys[i];
 
-		if ((m_currentKeys[i] = glfwGetKey(window, i)) == GLFW_PRESS)
+		if ((m_currentKeys[i] = glfwGetKey(m_window, i)) == GLFW_PRESS)
 			m_pressedKeys.push_back(m_currentKeys[i]);
 	}
 
 	// update mouse
 	for (int i = 0; i < 8 ; ++i) {
 		m_lastButtons[i] = m_currentButtons[i];
-		m_currentButtons[i] = glfwGetMouseButton(window, i);
+		m_currentButtons[i] = glfwGetMouseButton(m_window, i);
 	}
 
 	// update old mouse position

@@ -10,7 +10,7 @@ struct GLFWwindow;
 
 namespace aie {
 
-IMGUI_API bool        ImGui_Init(GLFWwindow* window, bool install_callbacks);
+IMGUI_API bool        ImGui_Init(GLFWwindow* m_window, bool install_callbacks);
 IMGUI_API void        ImGui_Shutdown();
 IMGUI_API void        ImGui_NewFrame();
 
@@ -21,9 +21,9 @@ IMGUI_API bool        ImGui_CreateDeviceObjects();
 // GLFW callbacks (installed by default if you enable 'install_callbacks' during initialization)
 // Provided here if you want to chain callbacks.
 // You can also handle inputs yourself and use those as a reference.
-IMGUI_API void        ImGui_MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-IMGUI_API void        ImGui_ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
-IMGUI_API void        ImGui_KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-IMGUI_API void        ImGui_CharCallback(GLFWwindow* window, unsigned int c);
+IMGUI_API void        ImGui_MouseButtonCallback(GLFWwindow* m_window, int button, int action, int mods);
+IMGUI_API void        ImGui_ScrollCallback(GLFWwindow* m_window, double xoffset, double yoffset);
+IMGUI_API void        ImGui_KeyCallback(GLFWwindow* m_window, int key, int scancode, int action, int mods);
+IMGUI_API void        ImGui_CharCallback(GLFWwindow* m_window, unsigned int c);
 
 } // namespace aie
