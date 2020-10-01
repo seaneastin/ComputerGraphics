@@ -24,11 +24,21 @@ int GraphicsApp::run()
 	bool updating = true;
 	bool drawing = true;
 
+	double deltaTime = 0.0f;
+	double timeOfPreviousUpdate = 0.0;
+
 	if (!start())
 		return -1;
 
 	while (updating && drawing) {
-		updating = update();
+		//Get the current time
+		double timeOfCurrentUpdate = glfwGetTime();
+		//Find the change in time
+		deltaTime = timeOfCurrentUpdate - timeOfPreviousUpdate;
+		//Store the current time for the next loop
+		timeOfPreviousUpdate = timeOfCurrentUpdate;
+
+		updating = update(deltaTime);
 		drawing = draw();
 	}
 
@@ -94,7 +104,7 @@ bool GraphicsApp::start()
 	return true;
 }
 
-bool GraphicsApp::update()
+bool GraphicsApp::update(double deltaTime)
 {
 	glfwPollEvents();
 
