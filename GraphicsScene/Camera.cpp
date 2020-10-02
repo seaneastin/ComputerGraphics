@@ -86,22 +86,19 @@ bool Camera::update(double deltaTime)
         m_position -= up * (float)deltaTime;
     }
 
-    double currentMouseX = 0.0;
-    double currentMouseY = 0.0;
-    double previousMouseX = 0.0;
-    double previousMouseY = 0.0;
-
     //Get current mouse coordinates
-    glfwGetCursorPos(m_instance->getWindow(), &currentMouseX, &currentMouseY);
+    glfwGetCursorPos(m_instance->getWindow(), &m_currentMouseX, &m_currentMouseY);
+    m_currentMouseX -= m_instance->getWidth() / 2;
+    m_currentMouseY -= m_instance->getHeight() / 2;
 
     //Turn the camera based on the change in mouse position (delta mouse)
-    if (glfwGetKey(m_instance->getWindow(), GLFW_KEY_HOME)) {
-        m_yaw += m_turnSpeed * (currentMouseX - previousMouseX);
-        m_pitch -= m_turnSpeed * (currentMouseY - previousMouseY);
+    if (glfwGetMouseButton(m_instance->getWindow(), GLFW_MOUSE_BUTTON_1)) {
+        m_yaw += m_turnSpeed * (m_currentMouseX - m_previousMouseX);
+        m_pitch -= m_turnSpeed * (m_currentMouseY - m_previousMouseY);
     }
     //Store previous mouse coordinates
-    previousMouseX = currentMouseX;
-    previousMouseY = currentMouseY;
+    m_previousMouseX = m_currentMouseX;
+    m_previousMouseY = m_currentMouseY;
 
     return true;
 }
