@@ -1,16 +1,18 @@
+#pragma once
 #include <gl_core_4_4.h>
 #include <GLFW/glfw3.h>
 #include <Gizmos.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-#pragma once
-class GraphicsApp
+class Camera;
+
+class Game
 {
 public:
-	GraphicsApp();
-	GraphicsApp(int width, int height, const char* title);
-	~GraphicsApp();
+	Game();
+	Game(int width, int height, const char* title);
+	~Game();
 
 	int run();
 
@@ -19,12 +21,11 @@ public:
 	bool draw();
 	bool end();
 
-
+	GLFWwindow* getWindow() { return m_window; }
 
 protected:
 	GLFWwindow* m_window;
-	glm::mat4 m_view;
-	glm::mat4 m_projection;
+	Camera* m_camera;
 
 private:
 	int m_width;
