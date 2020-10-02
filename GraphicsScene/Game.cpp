@@ -98,6 +98,8 @@ bool Game::start()
 	//Enable OpenGL depth test
 	glEnable(GL_DEPTH_TEST);
 
+	m_ball = new Ball({ 0.8f, 0.1f, 0.1f, 1.0f }, 2.0f);
+
 	return true;
 }
 
@@ -142,6 +144,8 @@ bool Game::draw()
 			i == 10 ? white : grey);
 	}
 
+	m_ball->draw();
+
 	aie::Gizmos::draw(m_camera->getProjectionMatrix(m_width, m_height) * m_camera->getViewMatrix());
 
 	glfwSwapBuffers(m_window);
@@ -151,6 +155,8 @@ bool Game::draw()
 
 bool Game::end()
 {
+	delete m_ball;
+
 	//Destroy the Gizmos
 	aie::Gizmos::destroy();
 

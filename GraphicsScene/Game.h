@@ -4,6 +4,7 @@
 #include <Gizmos.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
+#include "Ball.h"
 
 class Camera;
 
@@ -29,6 +30,7 @@ public:
 protected:
 	GLFWwindow* m_window;
 	Camera* m_camera;
+	Ball* m_ball;
 
 private:
 	int m_width;

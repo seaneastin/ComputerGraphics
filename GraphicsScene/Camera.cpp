@@ -49,16 +49,23 @@ bool Camera::update(double deltaTime)
     //Calculate the right vector
     glm::vec3 right(
         -sin(yawRadians),
-        0,
+        0.0f,
         cos(yawRadians)
     );
     //Calculate the up vector
     glm::vec3 up(0.0f, 1.0f, 0.0f);
 
-    //Find the direction
-    glm::vec3 direction(
+    ////Find the direction
+    //glm::vec3 direction(
+    //    glfwGetKey(m_instance->getWindow(), keyRight) - glfwGetKey(m_instance->getWindow(), keyLeft),
+    //    glfwGetKey(m_instance->getWindow(), keyUp) - glfwGetKey(m_instance->getWindow(), keyDown),
+    //    glfwGetKey(m_instance->getWindow(), keyForward) - glfwGetKey(m_instance->getWindow(), keyBack)
+    //);
+    //if (direction.x != 0.0f || direction.y != 0.0f || direction.z != 0.0f)
+    //    direction = glm::normalize(direction);
 
-    );
+    ////Move
+    //m_position += direction * m_moveSpeed * (float)deltaTime;
 
     //Check input
     if (glfwGetKey(m_instance->getWindow(), keyForward)) {
