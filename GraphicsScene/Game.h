@@ -31,10 +31,11 @@ protected:
 	GLFWwindow* m_window;
 	Camera* m_camera;
 	Ball* m_ball;
+	Actor* m_startActor;
+	Actor* m_endActor;
 
 private:
-	int m_width;
-	int m_height;
+	int m_width, m_height;
 	const char* m_title;
 };
 
