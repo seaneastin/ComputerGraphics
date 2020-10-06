@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include "Ball.h"
+#include "Bone.h"
 
 class Camera;
 
@@ -30,9 +31,9 @@ public:
 protected:
 	GLFWwindow* m_window;
 	Camera* m_camera;
-	Ball* m_ball;
 	Actor* m_startActor;
 	Actor* m_endActor;
+	Bone* m_bone;
 
 private:
 	int m_width, m_height;
