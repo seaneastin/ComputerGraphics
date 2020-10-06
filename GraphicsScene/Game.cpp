@@ -99,16 +99,25 @@ bool Game::start()
 	glEnable(GL_DEPTH_TEST);
 
 	//Create a placeholder for a starting position and rotation
-	m_startActor = new Actor();
-	m_startActor->setPosition({ 10.0f, 5.0f, 10.0f });
-	m_startActor->setRotation(glm::vec3(0.0f, -1.0f, 1.0f));
+	m_startActor = new Actor({ 10.0f, 5.0f, 10.0f }, glm::vec3(0.0f, -1.0f, 1.0f));
 	//Create a placeholder for an ending position and rotation
-	m_endActor = new Actor();
-	m_endActor->setPosition({ -10.0f, 0.0f, -10.0f });
-	m_endActor->setRotation(glm::vec3(0.0f, 1.0f, -1.0f));
+	m_endActor = new Actor({ -10.0f, 0.0f, -10.0f }, glm::vec3(0.0f, 1.0f, -1.0f));
 
 	//Create a bone
-	m_bone = new Bone(*m_startActor, *m_endActor);
+	m_bone = new Bone({
+		{ 10.0f, 5.0f, 10.0f }, glm::vec3(0.0f, -1.0f, 1.0f) },
+		{ { -10.0f, 0.0f, -10.0f }, glm::vec3(0.0f, 1.0f, -1.0f) }
+	);
+	m_bone2 = new Bone({
+		{ 1.0f, 5.0f, 1.0f }, glm::vec3(0.0f, -1.0f, 1.0f) },
+		{ { -1.0f, 0.0f, -1.0f }, glm::vec3(0.0f, 1.0f, -1.0f) }
+	);
+
+	//Create a skeleton
+	m_skeleton = new Skeleton();
+	//Add the bone to the skeleton
+	m_skeleton->addBone(m_bone);
+	m_skeleton->addBone(m_bone2);
 
 	return true;
 }
@@ -124,7 +133,7 @@ bool Game::update(double deltaTime)
 
 	m_camera->update(deltaTime);
 
-	m_bone->update(deltaTime);
+	m_skeleton->update(deltaTime);
 
 	return true;
 }
@@ -156,9 +165,7 @@ bool Game::draw()
 			i == 10 ? white : grey);
 	}
 
-	//m_ball->draw();
-
-	m_bone->draw();
+	m_skeleton->draw();
 
 	aie::Gizmos::draw(m_camera->getProjectionMatrix(m_width, m_height) * m_camera->getViewMatrix());
 
@@ -171,6 +178,8 @@ bool Game::end()
 {
 	delete m_startActor;
 	delete m_endActor;
+	delete m_bone;
+	delete m_skeleton;
 
 	//Destroy the Gizmos
 	aie::Gizmos::destroy();

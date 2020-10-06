@@ -9,6 +9,7 @@ class Actor
 {
 public:
 	Actor() {}
+	Actor(glm::vec3 position, glm::quat rotation);
 	~Actor() {}
 
 	virtual bool update(double deltaTime) { return true; }
