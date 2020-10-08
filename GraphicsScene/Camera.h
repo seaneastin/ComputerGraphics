@@ -11,10 +11,10 @@ public:
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix(float width, float height);
 
-	float getYaw() { return m_yaw; }
-	void setYaw(float degrees) { m_yaw = degrees; }
-	float getPitch() { return m_pitch; }
-	void setPitch(float degrees) { m_pitch = degrees; }
+	float getYaw();
+	void setYaw(float degrees);
+	float getPitch();
+	void setPitch(float degrees);
 
 	bool update(double deltaTime) override;
 

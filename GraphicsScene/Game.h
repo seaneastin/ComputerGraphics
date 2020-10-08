@@ -32,10 +32,9 @@ public:
 protected:
 	GLFWwindow* m_window;
 	Camera* m_camera;
-	Actor* m_startActor;
-	Actor* m_endActor;
-	Bone* m_bone;
-	Bone* m_bone2;
+	Bone* m_hipBone;
+	Bone* m_kneeBone;
+	Bone* m_ankleBone;
 	Skeleton* m_skeleton;
 
 private:

@@ -21,8 +21,16 @@ public:
 	void setRotation(glm::quat rotation) { m_rotation = rotation; }
 	glm::mat4 getTransform();
 
+	Actor* getParent() { return m_parent; }
+	void setParent(Actor* parent) { m_parent = parent; }
+	glm::vec3 getParentPosition();
+	glm::quat getParentRotation();
+
 protected:
 	glm::vec3 m_position{ 0.0f, 0.0f, 0.0f };
 	glm::quat m_rotation{ 1.0f, 0.0f, 0.0f, 0.0f };
+
+private:
+	Actor* m_parent = nullptr;
 };
 

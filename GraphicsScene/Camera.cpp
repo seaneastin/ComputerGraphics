@@ -3,8 +3,8 @@
 glm::mat4 Camera::getViewMatrix()
 {
     //Convert degrees to radians
-    float yawRadians = glm::radians(m_yaw);
-    float pitchRadians = glm::radians(m_pitch);
+    float yawRadians = glm::radians(getYaw());
+    float pitchRadians = glm::radians(getPitch());
     //Calculate the forward vector
     glm::vec3 forward(
         cos(pitchRadians) * cos(yawRadians),
@@ -28,18 +28,38 @@ glm::mat4 Camera::getProjectionMatrix(float width, float height)
     );
 }
 
+float Camera::getYaw()
+{
+    return m_yaw;
+}
+
+void Camera::setYaw(float degrees)
+{
+    m_yaw = degrees;
+}
+
+float Camera::getPitch()
+{
+    return m_pitch;
+}
+
+void Camera::setPitch(float degrees)
+{
+    m_pitch = degrees;
+}
+
 bool Camera::update(double deltaTime)
 {
     int keyForward = GLFW_KEY_W;
     int keyBack = GLFW_KEY_S;
     int keyLeft = GLFW_KEY_A;
     int keyRight = GLFW_KEY_D;
-    int keyUp = GLFW_KEY_SPACE;
-    int keyDown = GLFW_KEY_LEFT_CONTROL;
+    int keyUp = GLFW_KEY_E;
+    int keyDown = GLFW_KEY_Q;
 
     //Convert degrees to radians
-    float yawRadians = glm::radians(m_yaw);
-    float pitchRadians = glm::radians(m_pitch);
+    float yawRadians = glm::radians(getYaw());
+    float pitchRadians = glm::radians(getPitch());
     //Calculate the forward vector
     glm::vec3 forward(
         cos(pitchRadians) * cos(yawRadians),
@@ -100,8 +120,8 @@ bool Camera::update(double deltaTime)
 
     //Turn the camera based on the change in mouse position (delta mouse)
     if (glfwGetMouseButton(m_instance->getWindow(), GLFW_MOUSE_BUTTON_1)) {
-        m_yaw += m_turnSpeed * (m_currentMouseX - m_previousMouseX);
-        m_pitch -= m_turnSpeed * (m_currentMouseY - m_previousMouseY);
+        setYaw(getYaw() + m_turnSpeed * (m_currentMouseX - m_previousMouseX));
+        setPitch(getPitch() - m_turnSpeed * (m_currentMouseY - m_previousMouseY));
     }
     //Store previous mouse coordinates
     m_previousMouseX = m_currentMouseX;
