@@ -84,6 +84,28 @@ bool Game::start()
 	int minor = ogl_GetMinorVersion();
 	printf("OpenGL version: %i.%i\n", major, minor);
 
+	//Set the clear color
+	glClearColor(0.05f, 0.05f, 0.025f, 1.0f);
+	//Enable OpenGL depth test
+	glEnable(GL_DEPTH_TEST);
+
+	//Initialize shader
+	m_shader.loadShader(
+		aie::eShaderStage::VERTEX,
+		"simple.vert"
+	);
+	m_shader.loadShader(
+		aie::eShaderStage::FRAGMENT,
+		"simple.frag"
+	);
+	if (!m_shader.link()) {
+		printf(
+			"Shader Error: %s\n",
+			m_shader.getLastError()
+		);
+		return false;
+	}
+
 	//Initialize Gizmos
 	aie::Gizmos::create(10000, 10000, 10000, 10000);
 
@@ -93,10 +115,16 @@ bool Game::start()
 	m_camera->setYaw(-135.0f);
 	m_camera->setPitch(-45.0f);
 
-	//Set the clear color
-	glClearColor(0.05f, 0.05f, 0.025f, 1.0f);
-	//Enable OpenGL depth test
-	glEnable(GL_DEPTH_TEST);
+	//Initialize the quad
+	m_quadMesh.initializeQuad();
+
+	//Set up the quad transform
+	m_quadTransform = {
+		10, 0, 0, 0,
+		0, 10, 0, 0,
+		0, 0, 10, 0,
+		0, 0, 0, 1
+	};
 
 	//Create bones
 	m_hipBone = new Bone({
@@ -167,9 +195,23 @@ bool Game::draw()
 			i == 10 ? white : grey);
 	}
 
+	//Get the projection and view matrices
+	mat4 projectionMatrix = m_camera->getProjectionMatrix(m_width, m_height);
+	mat4 viewMatrix = m_camera->getViewMatrix();
+
+	//Bind shader
+	m_shader.bind();
+
+	//Bind transform
+	mat4 pvm = projectionMatrix * viewMatrix * m_quadTransform;
+	m_shader.bindUniform("ProjectionViewModel", pvm);
+
+	//Draw quad
+	m_quadMesh.draw();
+
 	m_skeleton->draw();
 
-	aie::Gizmos::draw(m_camera->getProjectionMatrix(m_width, m_height) * m_camera->getViewMatrix());
+	aie::Gizmos::draw(projectionMatrix * viewMatrix);
 
 	glfwSwapBuffers(m_window);
 
