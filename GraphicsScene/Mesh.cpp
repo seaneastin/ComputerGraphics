@@ -82,26 +82,26 @@ void Mesh::initialize(
 
 void Mesh::initializeQuad()
 {
-	//Define 6 vertices for 2 triangles
-	Vertex vertices[6];
-	//Triangle A
+	//Define 4 vertices for 2 triangles
+	Vertex vertices[4];
+	//Position
 	vertices[0].position = { -0.5f, 0.0f, 0.5f, 1 };
 	vertices[1].position = { 0.5f, 0.0f, 0.5f, 1 };
 	vertices[2].position = { -0.5f, 0.0f, -0.5f, 1 };
-	//Triangle B
-	vertices[3].position = { -0.5f, 0.0f, -0.5f, 1 };
-	vertices[4].position = { 0.5f, 0.0f, 0.5f, 1 };
-	vertices[5].position = { 0.5f, 0.0f, -0.5f, 1 };
-	//Triangle A
+	vertices[3].position = { 0.5f, 0.0f, -0.5f, 1 };
+	//Color
 	vertices[0].color = { 0.2f, 0.2f, 0.8f, 1 };//blue
-	vertices[1].color = { 0.8f, 0.8f, 0.2f, 1 };//yellow
+	vertices[1].color = { 0.8f, 0.2f, 0.8f, 1 };//magenta
 	vertices[2].color = { 0.2f, 0.8f, 0.8f, 1 };//cyan
-	//Triangle B
-	vertices[3].color = { 0.2f, 0.8f, 0.2f, 1 };//green
-	vertices[4].color = { 0.8f, 0.2f, 0.8f, 1 };//magenta
-	vertices[5].color = { 0.8f, 0.2f, 0.2f, 1 };//red
+	vertices[3].color = { 0.8f, 0.2f, 0.2f, 1 };//red
 
-	initialize(6, vertices);
+	//Define 6 indices for 2 triangles
+	unsigned int indices[6] = {
+		0, 1, 2, //Triangle A
+		2, 1, 3  //Triangle B
+	};
+
+	initialize(4, vertices, 6, indices);
 }
 
 void Mesh::draw()
