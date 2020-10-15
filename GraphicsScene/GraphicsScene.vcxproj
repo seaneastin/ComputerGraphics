@@ -163,7 +163,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Earth.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="OBJMesh.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Ball.cpp" />
@@ -174,17 +176,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="Earth.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="OBJMesh.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="simple.frag" />
     <None Include="simple.vert" />
+    <None Include="soulspear.mtl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="earth_cloud.jpg">
@@ -205,20 +213,17 @@
     <Image Include="earth_specular.jpg">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Image>
+    <Image Include="soulspear_diffuse.tga">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="soulspear_normal.tga">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="soulspear_specular.tga">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Object Include="Buddha.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </Object>
-    <Object Include="Bunny.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </Object>
-    <Object Include="Dragon.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </Object>
-    <Object Include="Lucy.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </Object>
     <Object Include="soulspear.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Object>

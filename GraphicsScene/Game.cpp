@@ -106,8 +106,9 @@ bool Game::start()
 		return false;
 	}
 
-	if (!m_texture.load("earth_diffuse.jpg")) {
-		printf("Failed to load texture.\n");
+	//Load soulspear mesh
+	if (!m_objMesh.load("soulspear.obj")) {
+		printf("Failed to load soulspear.obj.\n");
 		return false;
 	}
 
@@ -120,28 +121,32 @@ bool Game::start()
 	m_camera->setYaw(-135.0f);
 	m_camera->setPitch(-45.0f);
 
-	//Initialize the mesh
-	m_mesh.initializeCube();
+	m_earth = new Earth(
+		{ 10.0f, 0.0f, 0.0f },
+		glm::vec3(1.0f, 0.0f, 0.0f),
+		{ 2.0f, 2.0f, 2.0f }
+	);
+	m_earth->start();
 
-	//Set up the quad transform
+	//Set up the identity transform
 	m_meshTransform = {
-		10, 0, 0, 0,
-		0, 10, 0, 0,
-		0, 0, 10, 0,
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
 		0, 0, 0, 1
 	};
 
 	//Create bones
-	m_hipBone = new Bone({
-		{ 0.0f, 5.0f, 0.0f }, glm::vec3(1.0f, 0.0f, 0.0f) },
+	m_hipBone = new Bone(
+		{ { 0.0f, 5.0f, 0.0f }, glm::vec3(1.0f, 0.0f, 0.0f) },
 		{ { 0.0f, 5.0f, 0.0f }, glm::vec3(-1.0f, 0.0f, 0.0f) }
 	);
-	m_kneeBone = new Bone({
-		{ 0.0f, -2.5f, 0.0f }, glm::vec3(1.0f, 0.0f, 0.0f) },
+	m_kneeBone = new Bone(
+		{ { 0.0f, -2.5f, 0.0f }, glm::vec3(1.0f, 0.0f, 0.0f) },
 		{ { 0.0f, -2.5f, 0.0f }, glm::vec3(0.0f, 0.0f, 0.0f) }
 	);
-	m_ankleBone = new Bone({
-		{ 0.0f, -2.5f, 0.0f }, glm::vec3(-1.0f, 0.0f, 0.0f) },
+	m_ankleBone = new Bone(
+		{ { 0.0f, -2.5f, 0.0f }, glm::vec3(-1.0f, 0.0f, 0.0f) },
 		{ { 0.0f, -2.5f, 0.0f }, glm::vec3(0.0f, 0.0f, 0.0f) }
 	);
 	m_kneeBone->setParent(m_hipBone);
@@ -207,18 +212,19 @@ bool Game::draw()
 	//Bind shader
 	m_shader.bind();
 
-	//Bind transform
-	mat4 pvm = projectionMatrix * viewMatrix * m_meshTransform;
+	//Bind and draw Earth
+	mat4 pvm = projectionMatrix * viewMatrix * m_earth->getTransform();
 	m_shader.bindUniform("ProjectionViewModel", pvm);
-
-	//Bind texture
 	m_shader.bindUniform("diffuseTexture", 0);
-	m_texture.bind(0);
+	m_earth->draw();
 
-	//Draw quad
-	m_mesh.draw();
+	//Draw obj mesh
+	pvm = projectionMatrix * viewMatrix * m_meshTransform;
+	m_shader.bindUniform("ProjectionViewModel", pvm);
+	m_shader.bindUniform("diffuseTexture", 0);
+	m_objMesh.draw();
 
-	//m_skeleton->draw();
+	m_skeleton->draw();
 
 	aie::Gizmos::draw(projectionMatrix * viewMatrix);
 

@@ -5,11 +5,13 @@
 #include <glm/ext.hpp>
 #include <Gizmos.h>
 #include <Texture.h>
+#include "OBJMesh.h"
 #include "Shader.h"
 #include "Mesh.h"
 #include "Ball.h"
 #include "Bone.h"
 #include "Skeleton.h"
+#include "Earth.h"
 
 class Camera;
 
@@ -38,8 +40,14 @@ protected:
 
 
 	aie::ShaderProgram	m_shader;
-	Mesh				m_mesh;
+
+	aie::OBJMesh		m_objMesh;
+	aie::Texture		m_objTexture;
 	glm::mat4			m_meshTransform;
+
+	Earth* m_earth;
+
+	Mesh				m_mesh;
 	aie::Texture		m_texture;
 
 	Bone*		m_hipBone;

@@ -41,10 +41,10 @@ void Mesh::initialize(
 		sizeof(Vertex),
 		0
 	);
-	//Enable second element as color
-	glEnableVertexAttribArray(1);
+	//Enable fourth element as color
+	glEnableVertexAttribArray(4);
 	glVertexAttribPointer(
-		1,
+		4,
 		4,
 		GL_FLOAT,
 		GL_FALSE,
