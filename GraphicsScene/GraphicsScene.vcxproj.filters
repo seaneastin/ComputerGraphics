@@ -77,4 +77,41 @@
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="earth_cloud.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="earth_cloud_trans.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="earth_diffuse.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="earth_lights.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="earth_normal.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="earth_specular.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="soulspear.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Buddha.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Bunny.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Dragon.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Lucy.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+  </ItemGroup>
 </Project>

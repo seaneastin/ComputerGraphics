@@ -1,5 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <Texture.h>
 
 class Mesh
 {
@@ -21,6 +22,7 @@ public:
 		unsigned int indexCount = 0,
 		unsigned int* indices = nullptr);
 	void initializeQuad();
+	void initializeCube();
 
 	virtual void draw();
 

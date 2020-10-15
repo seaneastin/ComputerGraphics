@@ -51,6 +51,16 @@ void Mesh::initialize(
 		sizeof(Vertex),
 		(GLvoid*)(8 * sizeof(float))
 	);
+	//Enable third element as texCoord
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(
+		2,
+		2,
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(Vertex),
+		(GLvoid*)(12 * sizeof(float))
+	);
 
 	//Bind indices if there are any
 	if (indexCount != 0) {
@@ -85,15 +95,20 @@ void Mesh::initializeQuad()
 	//Define 4 vertices for 2 triangles
 	Vertex vertices[4];
 	//Position
-	vertices[0].position = { -0.5f, 0.0f, 0.5f, 1 };
-	vertices[1].position = { 0.5f, 0.0f, 0.5f, 1 };
-	vertices[2].position = { -0.5f, 0.0f, -0.5f, 1 };
-	vertices[3].position = { 0.5f, 0.0f, -0.5f, 1 };
+	vertices[0].position = { -0.5f, 0.0f,  0.5f, 1 };//front left
+	vertices[1].position = {  0.5f, 0.0f,  0.5f, 1 };//front right
+	vertices[2].position = { -0.5f, 0.0f, -0.5f, 1 };//back left
+	vertices[3].position = {  0.5f, 0.0f, -0.5f, 1 };//back right
 	//Color
 	vertices[0].color = { 0.2f, 0.2f, 0.8f, 1 };//blue
 	vertices[1].color = { 0.8f, 0.2f, 0.8f, 1 };//magenta
 	vertices[2].color = { 0.2f, 0.8f, 0.8f, 1 };//cyan
 	vertices[3].color = { 0.8f, 0.2f, 0.2f, 1 };//red
+	//TexCoord
+	vertices[0].texCoord = { 0, 1 };//bottom left
+	vertices[1].texCoord = { 1, 1 };//bottom right
+	vertices[2].texCoord = { 0, 0 };//top left
+	vertices[3].texCoord = { 1, 0 };//top right
 
 	//Define 6 indices for 2 triangles
 	unsigned int indices[6] = {
@@ -102,6 +117,70 @@ void Mesh::initializeQuad()
 	};
 
 	initialize(4, vertices, 6, indices);
+}
+
+void Mesh::initializeCube()
+{
+	//Define 8 vertices for 12 triangles
+	Vertex vertices[8];
+
+	//Position
+	//Bottom
+	vertices[0].position = { -0.5f, 0.0f, 0.5f, 1 };
+	vertices[1].position = { 0.5f, 0.0f, 0.5f, 1 };
+	vertices[2].position = { -0.5f, 0.0f, -0.5f, 1 };
+	vertices[3].position = { 0.5f, 0.0f, -0.5f, 1 };
+	//Top
+	vertices[4].position = { -0.5f, 1.0f, 0.5f, 1 };
+	vertices[5].position = { 0.5f, 1.0f, 0.5f, 1 };
+	vertices[6].position = { -0.5f, 1.0f, -0.5f, 1 };
+	vertices[7].position = { 0.5f, 1.0f, -0.5f, 1 };
+
+	//Color
+	glm::vec4 blue = { 0.2f, 0.2f, 0.8f, 1 };
+	glm::vec4 magenta = { 0.8f, 0.2f, 0.8f, 1 };
+	glm::vec4 cyan = { 0.2f, 0.8f, 0.8f, 1 };
+	glm::vec4 red = { 0.8f, 0.2f, 0.2f, 1 };
+
+	vertices[0].color = blue;
+	vertices[1].color = magenta;
+	vertices[2].color = cyan;
+	vertices[3].color = red;
+
+	vertices[4].color = blue;
+	vertices[5].color = magenta;
+	vertices[6].color = cyan;
+	vertices[7].color = red;
+
+	//TexCoord
+	//Bottom
+	vertices[0].texCoord = { 0.25f, 0.833f };//front left
+	vertices[1].texCoord = { 0.50f, 0.833f };//front right
+	vertices[2].texCoord = { 1.00f, 0.833f };//back left
+	vertices[3].texCoord = { 0.75f, 0.833f };//back right
+	//Top
+	vertices[4].texCoord = { 0.25f, 0.166f };//front left
+	vertices[5].texCoord = { 0.50f, 0.166f };//front right
+	vertices[6].texCoord = { 1.00f, 0.166f };//back left
+	vertices[7].texCoord = { 0.75f, 0.166f };//back right
+
+	//Define 36 indices for 12 triangles
+	unsigned int indices[36] = {
+		0, 1, 2, //Bottom A
+		2, 1, 3, //Bottom B
+		4, 5, 6, //Top A
+		6, 5, 7, //Top B
+		0, 2, 6, //Left A
+		0, 4, 6, //Left B
+		1, 3, 5, //Right A
+		3, 5, 7, //Right B
+		0, 1, 4, //Front A
+		1, 4, 5, //Front B
+		2, 3, 7, //Back A
+		2, 6, 7  //Back B
+	};
+
+	initialize(8, vertices, 36, indices);
 }
 
 void Mesh::draw()

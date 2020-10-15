@@ -1,9 +1,10 @@
 #pragma once
 #include <gl_core_4_4.h>
 #include <GLFW/glfw3.h>
-#include <Gizmos.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
+#include <Gizmos.h>
+#include <Texture.h>
 #include "Shader.h"
 #include "Mesh.h"
 #include "Ball.h"
@@ -35,9 +36,11 @@ protected:
 	GLFWwindow*	m_window;
 	Camera*		m_camera;
 
+
 	aie::ShaderProgram	m_shader;
-	Mesh				m_quadMesh;
-	glm::mat4			m_quadTransform;
+	Mesh				m_mesh;
+	glm::mat4			m_meshTransform;
+	aie::Texture		m_texture;
 
 	Bone*		m_hipBone;
 	Bone*		m_kneeBone;

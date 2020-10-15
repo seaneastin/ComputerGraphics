@@ -106,6 +106,11 @@ bool Game::start()
 		return false;
 	}
 
+	if (!m_texture.load("earth_diffuse.jpg")) {
+		printf("Failed to load texture.\n");
+		return false;
+	}
+
 	//Initialize Gizmos
 	aie::Gizmos::create(10000, 10000, 10000, 10000);
 
@@ -115,11 +120,11 @@ bool Game::start()
 	m_camera->setYaw(-135.0f);
 	m_camera->setPitch(-45.0f);
 
-	//Initialize the quad
-	m_quadMesh.initializeQuad();
+	//Initialize the mesh
+	m_mesh.initializeCube();
 
 	//Set up the quad transform
-	m_quadTransform = {
+	m_meshTransform = {
 		10, 0, 0, 0,
 		0, 10, 0, 0,
 		0, 0, 10, 0,
@@ -203,13 +208,17 @@ bool Game::draw()
 	m_shader.bind();
 
 	//Bind transform
-	mat4 pvm = projectionMatrix * viewMatrix * m_quadTransform;
+	mat4 pvm = projectionMatrix * viewMatrix * m_meshTransform;
 	m_shader.bindUniform("ProjectionViewModel", pvm);
 
-	//Draw quad
-	m_quadMesh.draw();
+	//Bind texture
+	m_shader.bindUniform("diffuseTexture", 0);
+	m_texture.bind(0);
 
-	m_skeleton->draw();
+	//Draw quad
+	m_mesh.draw();
+
+	//m_skeleton->draw();
 
 	aie::Gizmos::draw(projectionMatrix * viewMatrix);
 
