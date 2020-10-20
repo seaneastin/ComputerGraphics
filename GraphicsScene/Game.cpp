@@ -106,11 +106,11 @@ bool Game::start()
 		return false;
 	}
 
-	//Load soulspear mesh
-	//if (!m_objMesh.load("soulspear.obj")) {
-	//	printf("Failed to load soulspear.obj.\n");
-	//	return false;
-	//}
+	//Load obj mesh
+	if (!m_objMesh.load("Dragon.obj")) {
+		printf("Failed to load OBJmesh.\n");
+		return false;
+	}
 
 	//Initialize Gizmos
 	aie::Gizmos::create(10000, 10000, 10000, 10000);
@@ -159,6 +159,10 @@ bool Game::start()
 	m_skeleton->addBone(m_kneeBone);
 	m_skeleton->addBone(m_ankleBone);
 
+	m_light.setAmbient({ 0.5f, 0.5f, 0.5f });
+	m_light.setDiffuse({ 1.0f, 1.0f, 1.0f });
+	m_light.setSpecular({ 1.0f, 1.0f, 1.0f });
+
 	return true;
 }
 
@@ -177,11 +181,9 @@ bool Game::update(double deltaTime)
 	float time = glfwGetTime();
 	m_light.setDirection(glm::normalize(glm::vec3(
 		glm::cos(time * 2),
-		0,
+		-1,
 		glm::sin(time * 2))
 	));
-	m_light.setAmbient({ 0.2f, 0.2f, 0.2f });
-	m_light.setDiffuse({ 2.0f, 2.0f, 1.0f });
 
 	//m_skeleton->update(deltaTime);
 
@@ -222,6 +224,9 @@ bool Game::draw()
 	//Bind shader
 	m_shader.bind();
 
+	//Bind camera
+	m_shader.bindUniform("CameraPosition", m_camera->getPosition());
+
 	//Bind light
 	m_shader.bindUniform("Ia", m_light.getAmbient());
 	m_shader.bindUniform("Id", m_light.getDiffuse());
@@ -233,14 +238,15 @@ bool Game::draw()
 	m_shader.bindUniform("ProjectionViewModel", pvm);
 	m_shader.bindUniform("NormalMatrix",
 		glm::inverseTranspose(glm::mat3(m_earth->getTransform())));
+	m_shader.bindUniform("ModelMatrix", m_earth->getTransform());
 	//m_shader.bindUniform("diffuseTexture", 0);
 	m_earth->draw();
 
 	//Draw obj mesh
-	//pvm = projectionMatrix * viewMatrix * m_meshTransform;
-	//m_shader.bindUniform("ProjectionViewModel", pvm);
+	pvm = projectionMatrix * viewMatrix * m_meshTransform;
+	m_shader.bindUniform("ProjectionViewModel", pvm);
 	//m_shader.bindUniform("diffuseTexture", 0);
-	//m_objMesh.draw();
+	m_objMesh.draw();
 
 	//m_skeleton->draw();
 
