@@ -8,6 +8,7 @@
 #include "OBJMesh.h"
 #include "Shader.h"
 #include "Mesh.h"
+#include "Light.h"
 #include "Ball.h"
 #include "Bone.h"
 #include "Skeleton.h"
@@ -38,8 +39,9 @@ protected:
 	GLFWwindow*	m_window;
 	Camera*		m_camera;
 
-
 	aie::ShaderProgram	m_shader;
+
+	Light m_light;
 
 	aie::OBJMesh		m_objMesh;
 	aie::Texture		m_objTexture;

@@ -92,11 +92,11 @@ bool Game::start()
 	//Initialize shader
 	m_shader.loadShader(
 		aie::eShaderStage::VERTEX,
-		"simple.vert"
+		"phong.vert"
 	);
 	m_shader.loadShader(
 		aie::eShaderStage::FRAGMENT,
-		"simple.frag"
+		"phong.frag"
 	);
 	if (!m_shader.link()) {
 		printf(
@@ -107,10 +107,10 @@ bool Game::start()
 	}
 
 	//Load soulspear mesh
-	if (!m_objMesh.load("soulspear.obj")) {
-		printf("Failed to load soulspear.obj.\n");
-		return false;
-	}
+	//if (!m_objMesh.load("soulspear.obj")) {
+	//	printf("Failed to load soulspear.obj.\n");
+	//	return false;
+	//}
 
 	//Initialize Gizmos
 	aie::Gizmos::create(10000, 10000, 10000, 10000);
@@ -122,9 +122,9 @@ bool Game::start()
 	m_camera->setPitch(-45.0f);
 
 	m_earth = new Earth(
-		{ 10.0f, 0.0f, 0.0f },
-		glm::vec3(1.0f, 0.0f, 0.0f),
-		{ 2.0f, 2.0f, 2.0f }
+		{ 0.0f, 0.0f, 0.0f },
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		{ 10.0f, 10.0f, 10.0f }
 	);
 	m_earth->start();
 
@@ -173,7 +173,17 @@ bool Game::update(double deltaTime)
 
 	m_camera->update(deltaTime);
 
-	m_skeleton->update(deltaTime);
+	//Rotate the light
+	float time = glfwGetTime();
+	m_light.setDirection(glm::normalize(glm::vec3(
+		glm::cos(time * 2),
+		0,
+		glm::sin(time * 2))
+	));
+	m_light.setAmbient({ 0.2f, 0.2f, 0.2f });
+	m_light.setDiffuse({ 2.0f, 2.0f, 1.0f });
+
+	//m_skeleton->update(deltaTime);
 
 	return true;
 }
@@ -212,19 +222,27 @@ bool Game::draw()
 	//Bind shader
 	m_shader.bind();
 
+	//Bind light
+	m_shader.bindUniform("Ia", m_light.getAmbient());
+	m_shader.bindUniform("Id", m_light.getDiffuse());
+	m_shader.bindUniform("Is", m_light.getSpecular());
+	m_shader.bindUniform("LightDirection", m_light.getDirection());
+
 	//Bind and draw Earth
 	mat4 pvm = projectionMatrix * viewMatrix * m_earth->getTransform();
 	m_shader.bindUniform("ProjectionViewModel", pvm);
-	m_shader.bindUniform("diffuseTexture", 0);
+	m_shader.bindUniform("NormalMatrix",
+		glm::inverseTranspose(glm::mat3(m_earth->getTransform())));
+	//m_shader.bindUniform("diffuseTexture", 0);
 	m_earth->draw();
 
 	//Draw obj mesh
-	pvm = projectionMatrix * viewMatrix * m_meshTransform;
-	m_shader.bindUniform("ProjectionViewModel", pvm);
-	m_shader.bindUniform("diffuseTexture", 0);
-	m_objMesh.draw();
+	//pvm = projectionMatrix * viewMatrix * m_meshTransform;
+	//m_shader.bindUniform("ProjectionViewModel", pvm);
+	//m_shader.bindUniform("diffuseTexture", 0);
+	//m_objMesh.draw();
 
-	m_skeleton->draw();
+	//m_skeleton->draw();
 
 	aie::Gizmos::draw(projectionMatrix * viewMatrix);
 

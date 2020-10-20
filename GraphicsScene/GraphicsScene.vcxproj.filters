@@ -48,6 +48,9 @@
     <ClCompile Include="Earth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -83,6 +86,9 @@
     <ClInclude Include="Earth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="simple.vert">
@@ -92,6 +98,24 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="soulspear.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="phong.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Dragon.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Lucy.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Buddha.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Bunny.mtl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="phong.frag">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -126,6 +150,18 @@
   </ItemGroup>
   <ItemGroup>
     <Object Include="soulspear.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Bunny.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Dragon.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Lucy.obj">
+      <Filter>Resource Files</Filter>
+    </Object>
+    <Object Include="Buddha.obj">
       <Filter>Resource Files</Filter>
     </Object>
   </ItemGroup>
