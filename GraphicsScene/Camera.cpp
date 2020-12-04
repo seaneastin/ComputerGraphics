@@ -1,5 +1,6 @@
 #include "Camera.h"
 
+
 glm::mat4 Camera::getViewMatrix()
 {
     //Convert degrees to radians
@@ -48,6 +49,9 @@ void Camera::setPitch(float degrees)
     m_pitch = degrees;
 }
 
+/**
+ * updates the camera
+ */
 bool Camera::update(double deltaTime)
 {
     int keyForward = GLFW_KEY_W;

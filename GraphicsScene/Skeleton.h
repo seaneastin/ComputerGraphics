@@ -3,6 +3,9 @@
 #include "Bone.h"
 #include <vector>
 
+/**
+ * skeleton is an actor that contatains a list of bones that can be added to the skeleton
+ */
 class Skeleton : public Actor
 {
 public:

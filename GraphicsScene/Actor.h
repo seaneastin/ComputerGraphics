@@ -5,6 +5,9 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 
+/**
+ * a class that is inhereted from it storses the position, rotation, scale and its parent
+ */
 class Actor
 {
 public:
@@ -36,6 +39,7 @@ protected:
 	glm::vec3 m_scale{ 1.0f, 1.0f, 1.0f };
 
 private:
+
 	Actor* m_parent = nullptr;
 };
 

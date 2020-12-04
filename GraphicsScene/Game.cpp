@@ -19,7 +19,9 @@ Game::Game(int width, int height, const char* title)
 Game::~Game()
 {
 }
-
+/**
+ * will run untill the game ends
+ */
 int Game::run()
 {
 	bool updating = true;
@@ -49,6 +51,10 @@ int Game::run()
 	return 0;
 }
 
+
+/**
+ * runs when application start
+ */
 bool Game::start()
 {
 	using glm::vec3;
@@ -92,11 +98,11 @@ bool Game::start()
 	//Initialize shader
 	m_shader.loadShader(
 		aie::eShaderStage::VERTEX,
-		"phong.vert"
+		"Sean.vert"
 	);
 	m_shader.loadShader(
 		aie::eShaderStage::FRAGMENT,
-		"phong.frag"
+		"Sean.frag"
 	);
 	if (!m_shader.link()) {
 		printf(
@@ -107,10 +113,29 @@ bool Game::start()
 	}
 
 	//Load obj mesh
-	if (!m_objMesh.load("Dragon.obj")) {
+	if (!m_objMesh.load("soulspear.obj")) {
 		printf("Failed to load OBJmesh.\n");
 		return false;
 	}
+
+	//Load diffuse map
+	if (!m_texture.load("soulspear_diffuse.tga")) {
+		printf("Failed to load diffuse map.\n");
+		return false;
+	}
+
+	//Load mormal map
+	if (!m_normal.load("soulspear_normal.tga")) {
+		printf("Failed to load normal map.\n");
+		return false;
+	}
+
+	//Load specular map
+	if (!m_specular.load("soulspear_specular.tga")) {
+		printf("Failed to load specular map.\n");
+		return false;
+	}
+
 
 	//Initialize Gizmos
 	aie::Gizmos::create(10000, 10000, 10000, 10000);
@@ -165,7 +190,9 @@ bool Game::start()
 
 	return true;
 }
-
+/**
+ * updates the application
+ */
 bool Game::update(double deltaTime)
 {
 	glfwPollEvents();
@@ -190,6 +217,9 @@ bool Game::update(double deltaTime)
 	return true;
 }
 
+/**
+ * draws the scene
+ */
 bool Game::draw()
 {
 	using glm::vec3;
@@ -239,7 +269,7 @@ bool Game::draw()
 	m_shader.bindUniform("NormalMatrix",
 		glm::inverseTranspose(glm::mat3(m_earth->getTransform())));
 	m_shader.bindUniform("ModelMatrix", m_earth->getTransform());
-	//m_shader.bindUniform("diffuseTexture", 0);
+	m_shader.bindUniform("diffuseTexture", 0);
 	m_earth->draw();
 
 	//Draw obj mesh
@@ -257,6 +287,9 @@ bool Game::draw()
 	return true;
 }
 
+/**
+ * called when the game ends
+ */
 bool Game::end()
 {
 	delete m_hipBone;

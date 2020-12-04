@@ -14,6 +14,9 @@ Ball::Ball(glm::vec4 color, float radius)
 	m_radius = radius;
 }
 
+/**
+ * draws the ball
+ */
 bool Ball::draw()
 {
 	//Build a transform matrix

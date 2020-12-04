@@ -8,6 +8,9 @@ Mesh::~Mesh()
 	glDeleteBuffers(1, &m_ibo);
 }
 
+/**
+ * creates mesh based off parameters
+ */
 void Mesh::initialize(
 	unsigned int vertexCount, const Vertex* vertices,
 	unsigned int indexCount, unsigned int* indices)
@@ -100,6 +103,9 @@ void Mesh::initialize(
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+/**
+ * creates a quad mesh
+ */
 void Mesh::initializeQuad()
 {
 	//Define 4 vertices for 2 triangles
@@ -133,7 +139,9 @@ void Mesh::initializeQuad()
 
 	initialize(4, vertices, 6, indices);
 }
-
+/**
+ * creates a cube mesh
+ */
 void Mesh::initializeCube()
 {
 	//Define 8 vertices for 12 triangles
@@ -197,7 +205,9 @@ void Mesh::initializeCube()
 
 	initialize(8, vertices, 36, indices);
 }
-
+/**
+ * draws the mesh
+ */
 void Mesh::draw()
 {
 	glBindVertexArray(m_vao);

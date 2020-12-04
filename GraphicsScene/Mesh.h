@@ -1,7 +1,9 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <Texture.h>
-
+/**
+ * allows you to render objects to the screen
+ */
 class Mesh
 {
 public:

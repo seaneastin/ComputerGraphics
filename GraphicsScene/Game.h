@@ -51,6 +51,8 @@ protected:
 
 	Mesh				m_mesh;
 	aie::Texture		m_texture;
+	aie::Texture		m_normal;
+	aie::Texture		m_specular;
 
 	Bone*		m_hipBone;
 	Bone*		m_kneeBone;

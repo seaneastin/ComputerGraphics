@@ -1,6 +1,8 @@
 #pragma once
 #include "Actor.h"
-
+/**
+ * a bone that can be part of a skeleton
+ */
 class Bone : public Actor
 {
 public:

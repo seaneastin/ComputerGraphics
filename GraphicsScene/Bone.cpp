@@ -8,6 +8,9 @@ Bone::Bone(Actor startFrame, Actor endFrame)
 	m_endFrame = endFrame;
 }
 
+/**
+ * updates the bone
+ */
 bool Bone::update(double deltaTime)
 {
 	//Find a time-based value in the range of [0, 1]
@@ -28,7 +31,9 @@ bool Bone::update(double deltaTime)
 
 	return true;
 }
-
+/**
+ * draws the bone
+ */
 bool Bone::draw()
 {
 	//Build a transform matrix

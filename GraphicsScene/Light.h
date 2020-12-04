@@ -1,6 +1,9 @@
 #pragma once
 #include "Actor.h"
 
+/**
+ * a point light
+ */
 class Light
 {
 public:
